@@ -1,0 +1,23 @@
+<h1>All recipes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @recipes.each do |recipe| %>
+      <tr>
+        <td><%= recipe.name %></td>
+        <td><%= recipe.description %></td>
+        <td><%= link_to 'View', recipe_path(id: recipe.id) %></td>
+        <td><%= link_to 'Delete', recipe_path(id: recipe.id), data: {turbo_method: :delete, turbo_confirm: 'Delete the recipe?'} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<button type="button" class="btn"><%= link_to "Add a new recipe", new_recipe_path %></button>
