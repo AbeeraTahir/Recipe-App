@@ -2,11 +2,11 @@ class RecipesController < ApplicationController
   before_action :set_user, expect: [:update]
 
   def index
-    @recipes = @user.recipes.all
+    @recipes = @user.recipes
   end
 
   def show
-    @recipe = Recipe.includes(:recipe_foods).find(params[:id])
+    @recipe = Recipe.find(params[:id])
     @recipe_foods = @recipe.recipe_foods
   end
 
