@@ -4,7 +4,7 @@ class RecipeFoodsController < ApplicationController
 
   def new
     @foods = current_user.foods
-    if @recipe.user = current_user
+    if (@recipe.user = current_user)
       @recipe_food = RecipeFood.new
     else
       flash[:alert] = 'You cannot access an ingredient on a recipe that belongs to other Users.'
@@ -27,7 +27,7 @@ class RecipeFoodsController < ApplicationController
   def edit
     @foods = current_user.foods
   end
-  
+
   def update
     if @recipe_food.update(recipe_food_params)
       redirect_to recipe_path(@recipe), notice: 'Ingredient was successfully updated.'
@@ -39,14 +39,14 @@ class RecipeFoodsController < ApplicationController
 
   def destroy
     unless @recipe_food.recipe.user == current_user
-      flash[:alert] ='You cannot delete the ingredient belongs to other Users.'
+      flash[:alert] = 'You cannot delete the ingredient belongs to other Users.'
       return redirect_to recipe_path(@recipe)
     end
 
     if @recipe_food.destroy
       flash[:notice] = 'Ingredient deleted successfully removed.'
-    else
-      flash[:alert] = @recipe_food.errors.full_messages.first if @recipe_food.errors.any?
+    elsif @recipe_food.errors.any?
+      flash[:alert] = @recipe_food.errors.full_messages.first
     end
     redirect_to recipe_path(@recipe)
   end
