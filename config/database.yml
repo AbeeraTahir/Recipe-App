@@ -25,7 +25,7 @@ development:
   <<: *default
   database: Recipe_App_development
   username: postgres
-  password: 123456
+  password: unixMicro1
   host: localhost
   port: 5432
 
@@ -63,7 +63,7 @@ test:
   <<: *default
   database: Recipe_App_test
   username: postgres
-  password: 123456
+  password: unixMicro1
   host: localhost
   port: 5432
 
