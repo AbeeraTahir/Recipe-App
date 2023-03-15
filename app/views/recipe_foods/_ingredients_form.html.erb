@@ -1,0 +1,9 @@
+<%= form_with model: recipe_food, url: url do |form| %>
+  <%= form.label :quantity, "Quantity", placeholder: 0 %>
+  <%= form.number_field :quantity %>
+
+  <%= form.label :food_id, "Food" %>
+  <%= form.collection_select(:food_id, foods, :id, :name) %>
+
+  <%= form.submit %>
+<% end %>
