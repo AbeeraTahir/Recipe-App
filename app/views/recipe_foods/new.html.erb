@@ -1,3 +1,10 @@
 <h1>Add Ingredient</h1>
 
-<%= render "ingredients_form", recipe_food: @recipe_food, foods: @foods, url: recipe_recipe_foods_path%>
+<% if (@foods.empty?) %>
+  <h2>You have not added any food yet. please add some foods</h2>
+<% else %>
+  <%= render "ingredients_form", recipe_food: @recipe_food, foods: @foods, url: recipe_recipe_foods_path%>
+<% end %>
+
+<button><%= link_to "Add food", new_food_path %></button>
+
