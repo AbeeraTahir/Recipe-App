@@ -39,6 +39,19 @@ class RecipesController < ApplicationController
     end
   end
 
+  def toggle
+    @recipe = Recipe.find(params[:id])
+    @recipe.public = !@recipe.public
+    text = @recipe.public? ? 'public' : 'private'
+
+    if @recipe.save
+      flash[:notice] = "#{@recipe.name} is now #{text}!"
+    elsif @recipe.errors.any?
+      flash[:alert] = @recipe.errors.full_messages.first
+    end
+    redirect_to recipe_path(id: @recipe.id)
+  end
+
   private
 
   def set_user

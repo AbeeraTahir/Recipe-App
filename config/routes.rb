@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   resources :recipes do
     resources :recipe_foods
   end
+
+  resources :public_recipes
+  post 'toggle_public', to: 'recipes#toggle'
   
   root "foods#index"
 end

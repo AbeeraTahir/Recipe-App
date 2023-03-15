@@ -1,5 +1,7 @@
 <h1><%= @recipe.name %></h1>
 
+<%= button_to @recipe.public? ? 'Make private' : 'Make public', toggle_public_path(id: @recipe.id), method: :post %>
+
 <p>Description: <%= @recipe.description %></p>
 <p>Cooking Time: <%= @recipe.cooking_time %></p>
 <p>Preparation Time: <%= @recipe.preparation_time %></p>
