@@ -1,17 +1,31 @@
-<p style="color: green"><%= notice %></p>
+<h1>All Foods</h1>
+<h2>Welcome "<%= @user.name %>"</h2>
 
-<h1>Foods</h1>
+<%= link_to "Add food", new_food_path %>
 
-<div id="foods">
-  <% @foods.each do |food| %>
-    <%= render food %>
-    <p>
-      <%= link_to "Show this food", food %>
-    </p>
-  <% end %>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th>Food</th>
+      <th>Measurement unit</th>
+      <th>Unit price</th>
+      <th>Quantity</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @foods.each do |food| %>
+      <tr>
+        <td><%= food.name %></td>
+        <td><%= food.measurement_unit %></td>
+        <td><%= food.price %></td>
+        <td><%= food.quantity %></td>
+        <td><%= link_to 'Delete', food_path(id: food.id), data: {turbo_method: :delete, turbo_confirm: 'Delete the food?'} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<%= link_to "New food", new_food_path %>
 
 <%= button_to(
         "Log Out",
