@@ -1,7 +1,30 @@
-<h1>Recipe details</h1>
+<h1><%= @recipe.name %></h1>
 
-<p>Name: <%= @recipe.name %></p>
 <p>Description: <%= @recipe.description %></p>
 <p>Cooking Time: <%= @recipe.cooking_time %></p>
 <p>Preparation Time: <%= @recipe.preparation_time %></p>
 <p>public: <%= @recipe.public %></p>
+
+<button><%= link_to 'Add ingredient', recipe_foods_path(recipe_id: @recipe.id) %></button></br>
+
+<table>
+  <thead>
+    <tr>
+      <th>Food</th>
+      <th>Quantity</th>
+      <th>Value</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @recipe_foods.each do |recipe_food| %>
+      <tr>
+        <td><%= recipe_food.food.name %></td>
+        <td><%= recipe_food.quantity %></td>
+        <td>$<%= recipe_food.food.price * recipe_food.quantity %></td>
+        <td><%= link_to 'Remove', recipe_food_path(recipe_id: @recipe.id, id: recipe_food.id), data: {turbo_method: :delete, turbo_confirm: 'Delete this recipe food?'} %></td>
+        <td><%= link_to 'Modify', edit_food_path %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
