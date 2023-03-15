@@ -1,0 +1,3 @@
+<h1>Update Ingredient</h1>
+
+<%= render "ingredients_form", recipe_food: @recipe_food, foods: @foods, url: recipe_recipe_food_path(recipe_id: @recipe.id, id: @recipe_food.id) %>

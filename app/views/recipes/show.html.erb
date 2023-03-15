@@ -23,7 +23,7 @@
         <td><%= recipe_food.quantity %></td>
         <td>$<%= recipe_food.food.price * recipe_food.quantity %></td>
         <td><%= link_to 'Remove', recipe_recipe_food_path(recipe_id: @recipe.id, id: recipe_food.id), data: {turbo_method: :delete, turbo_confirm: 'Delete this recipe food?'} %></td>
-        # <td><%= link_to 'Modify', edit_food_path %></td>
+        <td><%= link_to 'Modify', edit_recipe_recipe_food_path(recipe_id: @recipe.id, id: recipe_food.id) %></td>
       </tr>
     <% end %>
   </tbody>
