@@ -1,7 +1,7 @@
 <h1>All Foods</h1>
 <h2>Welcome "<%= @user.name %>"</h2>
 
-<%= link_to "New food", new_food_path %>
+<%= link_to "Add food", new_food_path %>
 
 <table>
   <thead>
@@ -20,7 +20,6 @@
         <td><%= food.measurement_unit %></td>
         <td><%= food.price %></td>
         <td><%= food.quantity %></td>
-        <td><%= link_to 'View', food_path(id: food.id) %></td>
         <td><%= link_to 'Delete', food_path(id: food.id), data: {turbo_method: :delete, turbo_confirm: 'Delete the food?'} %></td>
       </tr>
     <% end %>
