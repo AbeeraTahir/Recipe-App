@@ -41,7 +41,7 @@ class RecipesController < ApplicationController
   private
 
   def set_user
-    @user = User.first
+    @user = current_user
   end
 
   def recipe_params
