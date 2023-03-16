@@ -4,6 +4,7 @@ class ShoppinglistsController < ApplicationController
   def index
     @total_price = 0
     @recipe_foods = []
+    # get all the recipe_foods from the user's recipes
     @user.recipes.each do |recipe|
       recipe.recipe_foods.each do |recipe_food|
         @total_price += recipe_food.food.price * recipe_food.quantity
@@ -11,6 +12,7 @@ class ShoppinglistsController < ApplicationController
       end
     end
 
+    # sum up the quantities of the same food
     grouped_recipe_foods = @recipe_foods.group_by(&:food_id)
     updated_recipe_foods = []
 
@@ -21,6 +23,16 @@ class ShoppinglistsController < ApplicationController
     end
 
     @recipe_foods = updated_recipe_foods
+    
+    # subtract the quantities of the foods that are already in the fridge
+    @foods = Food.all
+    
+    @recipe_foods.each do |food1|
+      food2 = @foods.find { |food2| food2.name == food1.food.name }
+      if food2
+        food1.quantity -= food2.quantity
+      end
+    end
   end
 
   private
