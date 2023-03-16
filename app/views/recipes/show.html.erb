@@ -36,7 +36,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @recipe_foods.each do |recipe_food| %>
+    <% @recipe_foods.includes(:food).each do |recipe_food| %>
       <tr>
         <td class="align-middle"><%= recipe_food.food.name %></td>
         <td class="text-center align-middle"><%= recipe_food.quantity %></td>
