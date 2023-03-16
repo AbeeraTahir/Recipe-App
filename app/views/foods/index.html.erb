@@ -1,8 +1,8 @@
-<h1>All Foods</h1>
+<h1><%= @user.name.capitalize %>'s Foods</h1>
 
 <div class="d-flex flex-row-reverse">
   <%= link_to new_food_path, class: "btn btn-primary" do %>
-    <%= content_tag :i, nil, class: "bi bi-plus-circle" %>
+    <%= content_tag :i, nil, class: "bi bi-plus-circle-fill" %>
     Add food
   <% end %>
 </div>

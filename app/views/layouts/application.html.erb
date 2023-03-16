@@ -13,20 +13,21 @@
     
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= javascript_include_tag 'rails-ujs' %>
+
   </head>
 
-  <body>
+  <body class="<%= user_signed_in? ? '' : 'bgmain' %>">
     <% if user_signed_in? %>
       <%= render partial: "shared/navbar" %>
+      <h2>Welcome "<%= @user.name.capitalize %>"</h2>
     <% end %>
     
     <div class='container mt-5'>
-      <h2>Welcome "<%= @user.name %>"</h2>
-      
       <% if flash.any? %>
         <% flash.each do |type, msg| %>
           <div class="flash-notice flash-<%= type %>">
-            <%= msg %>
+            <h3 class="<%= type==='notice' ? 'bg-success' : 'bg-danger' %> text-white p-2"><%= msg %></h3>
           </div>
         <% end %>
       <% end %>

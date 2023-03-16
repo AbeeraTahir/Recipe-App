@@ -1,16 +1,15 @@
-<h1>Public Recipes</h1>
+<h1 class="text-center">Public Recipes</h1>
 
-<ul>
-  <% @public_recipes.each do |public_recipe| %>
-    <%= link_to recipe_path(id: public_recipe.id) do%>
-      <li>
+<% @public_recipes.each do |public_recipe| %>
+  <%= link_to recipe_path(id: public_recipe.id), class: "text-decoration-none text-dark" do%>
+  <div class="card my-3">
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <h2 class="card-title"><%= public_recipe.name %></h2>
+        
         <div>
-          <h2><%= public_recipe.name %></h2>
-          <span><%= public_recipe.user.name %></span>
-        </div>
-        <div>
-          <p>Total food items: <%= public_recipe.recipe_foods.count %></p>
-          <p>Total Price
+          <p class="card-text"><b>Total food items:</b> <%= public_recipe.recipe_foods.count %></p>
+          <p class="card-text"><b>Total Price: $</b>
             <% total_price = 0 %>
             <% public_recipe.recipe_foods.each do |recipe_food| %>
             <% total_price += recipe_food.quantity * recipe_food.food.price %>
@@ -18,7 +17,10 @@
             <%= total_price %>
           </p>
         </div>
-      </li>
-    <% end %>
-  <% end %>
-</ul>
+      </div>
+      
+      <h4 class="card-subtitle mb-2 text-muted">By: <%= public_recipe.user.name.capitalize %></h4>
+    </div>
+  </div>
+<% end %>
+<% end %>

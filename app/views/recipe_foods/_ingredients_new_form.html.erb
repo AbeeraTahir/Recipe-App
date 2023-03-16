@@ -1,0 +1,15 @@
+<%= form_with model: recipe_food, url: url, class: "my-3" do |form| %>
+  <div class="mb-3">
+    <%= form.label :quantity, "Quantity", style: "display: block" %>
+    <%= form.number_field :quantity, placeholder: 0 %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :food_id, "Food", style: "display: block" %>
+    <%= form.collection_select(:food_id, foods, :id, :name) %>
+  </div>
+
+  <%= button_tag type: "submit", class: "btn btn-primary" do %>
+    <i class="bi bi-plus-circle-fill"></i> Add
+  <% end %>
+<% end %>
