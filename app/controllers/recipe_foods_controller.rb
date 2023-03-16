@@ -20,14 +20,14 @@ class RecipeFoodsController < ApplicationController
       existing_quantity = existing_recipe_food.quantity.to_i
       new_quantity = recipe_food_params[:quantity].to_i + existing_quantity
       existing_recipe_food.update(quantity: new_quantity)
-  
-      redirect_to recipe_path(@recipe), notice: "Recipe food updated"
+
+      redirect_to recipe_path(@recipe), notice: 'Recipe food updated'
     else
       @recipe_food = RecipeFood.new(recipe_food_params)
       @recipe_food.recipe = @recipe
-  
+
       if @recipe_food.save
-        redirect_to recipe_path(@recipe), notice: "New ingredient was successfully added."
+        redirect_to recipe_path(@recipe), notice: 'New ingredient was successfully added.'
       else
         flash[:alert] = @recipe_food.errors.full_messages.first if @recipe_food.errors.any?
         redirect_to recipes_path
