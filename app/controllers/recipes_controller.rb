@@ -1,12 +1,12 @@
 class RecipesController < ApplicationController
-  before_action :set_user, expect: [:update]
+  before_action :set_user
+  before_action :set_recipe, only: %i[show destroy toggle]
 
   def index
     @recipes = @user.recipes
   end
 
   def show
-    @recipe = Recipe.find(params[:id])
     @recipe_foods = @recipe.recipe_foods.includes(:food)
   end
 
@@ -28,7 +28,6 @@ class RecipesController < ApplicationController
   end
 
   def destroy
-    @recipe = Recipe.find(params[:id])
 
     if @recipe.destroy
       flash[:notice] = 'Recipe deleted successfully!'
@@ -40,7 +39,6 @@ class RecipesController < ApplicationController
   end
 
   def toggle
-    @recipe = Recipe.find(params[:id])
     @recipe.public = !@recipe.public
     text = @recipe.public? ? 'public' : 'private'
 
@@ -56,6 +54,10 @@ class RecipesController < ApplicationController
 
   def set_user
     @user = current_user
+  end
+
+  def set_recipe
+    @recipe = Recipe.find(params[:id])
   end
 
   def recipe_params

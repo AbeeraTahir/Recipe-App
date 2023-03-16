@@ -1,5 +1,5 @@
 class PublicRecipesController < ApplicationController
-  before_action :set_user, expect: [:update]
+  before_action :set_user
 
   def index
     @users = User.all

@@ -1,11 +1,10 @@
 class FoodsController < ApplicationController
   # before_action :set_food, only: %i[show edit update destroy]
-  before_action :set_user, expect: [:update]
+  before_action :set_user
 
   # GET /foods or /foods.json
   def index
-    # @foods = Food.all
-    @foods = @user.foods.all
+    @foods = @user.foods
   end
 
   # GET /foods/1 or /foods/1.json
@@ -17,9 +16,6 @@ class FoodsController < ApplicationController
   def new
     @food = Food.new
   end
-
-  # GET /foods/1/edit
-  def edit; end
 
   # POST /foods or /foods.json
   def create
@@ -38,6 +34,10 @@ class FoodsController < ApplicationController
   # DELETE /foods/1 or /foods/1.json
   def destroy
     @food = Food.find(params[:id])
+
+    unless @food.user == @user
+      flash[:alert] = 'You cannot delete the Food belongs to other Users.'
+    end
 
     if @food.destroy
       flash[:notice] = 'Food deleted successfully!'
