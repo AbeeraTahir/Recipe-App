@@ -1,6 +1,7 @@
 class RecipeFoodsController < ApplicationController
   before_action :find_recipe
   before_action :find_recipe_food, only: %i[edit update destroy]
+  before_action :set_user, expect: [:update]
 
   def new
     @foods = current_user.foods
@@ -63,5 +64,9 @@ class RecipeFoodsController < ApplicationController
 
   def find_recipe_food
     @recipe_food = RecipeFood.find(params[:id])
+  end
+  
+  def set_user
+    @user = current_user
   end
 end
