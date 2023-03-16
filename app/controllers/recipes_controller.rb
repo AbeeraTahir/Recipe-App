@@ -22,8 +22,8 @@ class RecipesController < ApplicationController
       flash[:notice] = 'Recipe created successfully!'
       redirect_to recipe_path(id: @recipe.id)
     else
-      flash.now[:alert] = @recipe.errors.full_messages.first if @recipe.errors.any?
-      render :new, status: unprocessable_entity
+      flash[:alert] = 'You must fill in all the fields! or Not duplicate recipe name'
+      redirect_to recipes_path
     end
   end
 
