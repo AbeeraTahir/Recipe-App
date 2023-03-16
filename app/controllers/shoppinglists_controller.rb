@@ -21,11 +21,6 @@ class ShoppinglistsController < ApplicationController
     @user = current_user
   end
 
-  def show
-    @recipe = Recipe.includes(:recipe_foods).find(params[:id])
-    @recipe_foods = @recipe.recipe_foods
-  end
-
   def all_recipes
     @recipe_foods = []
     @user.recipes.each do |recipe|
