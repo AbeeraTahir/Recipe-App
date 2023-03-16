@@ -21,17 +21,15 @@ class ShoppinglistsController < ApplicationController
     end
 
     @recipe_foods = updated_recipe_foods
-    
+
     # subtract the quantities of the foods that are already in the fridge
     @foods = Food.all
-    
+
     @recipe_foods.each do |food1|
-      food2 = @foods.find { |food2| food2.name == food1.food.name }
-      if food2
-        food1.quantity -= food2.quantity
-      end
+      food2 = @foods.find { |f| f.name == food1.food.name }
+      food1.quantity -= food2.quantity if food2
     end
-    
+
     # get total price
     @total_price = 0
     @recipe_foods.each do |recipe_food|

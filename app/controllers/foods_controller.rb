@@ -28,11 +28,10 @@ class FoodsController < ApplicationController
 
     if @food.save
       flash[:notice] = 'Food created successfully!'
-      redirect_to foods_path
     else
       flash[:alert] = 'You must fill in all the fields! or Not duplicate food name'
-      redirect_to foods_path
     end
+    redirect_to foods_path
   end
 
   # DELETE /foods/1 or /foods/1.json
