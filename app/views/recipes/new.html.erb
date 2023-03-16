@@ -1,25 +1,47 @@
-<h1>New Recipe</h1>
+<div class="d-flex justify-content-center">
+<div>
+<h1 class="text-primary">New Recipe</h1>
 
 <section>
-  <%= form_with model: @recipe, url: recipes_path, local: true do |f| %>
-    <%= f.label :name, 'Recipe name' %>
-    <%= f.text_field :name, autofocus: true, placeholder: 'Add recipe name' %><br/>
+  <%= form_with model: @recipe, url: recipes_path, local: true, class: "my-3" do |f| %>
+    <div class="mb-3">
+      <%= f.label :name, 'Recipe name', style: "display: block" %>
+      <%= f.text_field :name, autofocus: true, placeholder: 'Add recipe name' %>
+    </div>
 
-    <%= f.label :preparation_time, 'Preparation Time'%>
-    <%= f.number_field :preparation_time, autofocus: true, placeholder: 'Time in hours' %><br/>
+    <div class="mb-3">
+      <%= f.label :preparation_time, 'Preparation Time', style: "display: block" %>
+      <%= f.number_field :preparation_time, placeholder: 'Time in hours' %>
+    </div>
 
-    <%= f.label :cooking_time, 'Cooking Time' %>
-    <%= f.number_field :cooking_time, autofocus: true, placeholder: 'Time in hours' %><br/>
+    <div class="mb-3">
+      <%= f.label :cooking_time, 'Cooking Time', style: "display: block" %>
+      <%= f.number_field :cooking_time, placeholder: 'Time in hours' %>
+    </div>
 
-    <%= f.label :description, 'Description' %>
-    <%= f.text_area :description, autofocus: true, placeholder: 'Recipe description' %><br/>
+    <div class="mb-3">
+      <%= f.label :description, 'Description', style: "display: block" %>
+      <%= f.text_area :description, placeholder: 'Recipe description' %>
+    </div>
 
-    <%= f.label :public, "Do you want to make it public?" %>
-    <%= f.check_box :public, autofocus: true%><br/>
+    <div class="mb-3">
+      <%= f.label :public, "Do you want to make it public?" %>
+      <%= f.check_box :public%>
+    </div>
 
-    <%= f.submit "Create recipe", class: "create-btn btn" %>
+    <%= button_tag type: "submit", class: "btn btn-primary" do %>
+      <i class="bi bi-plus-circle-fill"></i> Create food
+    <% end %>
   <% end %>
 
 </section>
 
-<p><%=link_to 'Back', recipes_path %></p>
+<br>
+
+<%=link_to recipes_path, class: "btn btn-warning" do %>
+  <%= content_tag :i, nil, class: "bi bi-arrow-left-circle" %>
+  Back to recipes
+<% end %>
+
+</div>
+</div>
