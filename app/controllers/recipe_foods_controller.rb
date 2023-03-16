@@ -14,14 +14,24 @@ class RecipeFoodsController < ApplicationController
   end
 
   def create
-    @recipe_food = RecipeFood.new(recipe_food_params)
-    @recipe_food.recipe = @recipe
+    existing_recipe_food = RecipeFood.find_by(food_id: recipe_food_params[:food_id], recipe_id: @recipe.id)
 
-    if @recipe_food.save
-      redirect_to recipe_path(@recipe), notice: 'New ingredient was successfully added.'
+    if existing_recipe_food.present?
+      existing_quantity = existing_recipe_food.quantity.to_i
+      new_quantity = recipe_food_params[:quantity].to_i + existing_quantity
+      existing_recipe_food.update(quantity: new_quantity)
+  
+      redirect_to recipe_path(@recipe), notice: "Recipe food updated"
     else
-      flash[:alert] = @recipe_food.errors.full_messages.first if @recipe_food.errors.any?
-      redirect_to recipes_path
+      @recipe_food = RecipeFood.new(recipe_food_params)
+      @recipe_food.recipe = @recipe
+  
+      if @recipe_food.save
+        redirect_to recipe_path(@recipe), notice: "New ingredient was successfully added."
+      else
+        flash[:alert] = @recipe_food.errors.full_messages.first if @recipe_food.errors.any?
+        redirect_to recipes_path
+      end
     end
   end
 
