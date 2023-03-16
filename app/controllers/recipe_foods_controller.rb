@@ -65,7 +65,7 @@ class RecipeFoodsController < ApplicationController
   def find_recipe_food
     @recipe_food = RecipeFood.find(params[:id])
   end
-  
+
   def set_user
     @user = current_user
   end
