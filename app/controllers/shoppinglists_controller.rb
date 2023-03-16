@@ -2,12 +2,10 @@ class ShoppinglistsController < ApplicationController
   before_action :find_user
 
   def index
-    @total_price = 0
     @recipe_foods = []
     # get all the recipe_foods from the user's recipes
     @user.recipes.each do |recipe|
       recipe.recipe_foods.each do |recipe_food|
-        @total_price += recipe_food.food.price * recipe_food.quantity
         @recipe_foods << recipe_food
       end
     end
@@ -32,6 +30,12 @@ class ShoppinglistsController < ApplicationController
       if food2
         food1.quantity -= food2.quantity
       end
+    end
+    
+    # get total price
+    @total_price = 0
+    @recipe_foods.each do |recipe_food|
+      @total_price += recipe_food.food.price * recipe_food.quantity
     end
   end
 
