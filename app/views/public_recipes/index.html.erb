@@ -1,7 +1,7 @@
 <h1>Public Recipes</h1>
 
 <ul>
-  <% @public_recipes.each do |public_recipe| %>
+  <% @public_recipes.includes(%i[recipe_foods user]).each do |public_recipe| %>
     <%= link_to recipe_path(id: public_recipe.id) do%>
       <li>
         <div>
