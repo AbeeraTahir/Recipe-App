@@ -17,8 +17,14 @@
 
 <p><b>Description:</b> <%= @recipe.description %></p>
 
-<div class="d-flex justify-content-between">
-  <button class="btn btn-success"><i class="bi bi-cart-plus-fill"></i> Generate shopping list</button>
+<div class="d-flex <%= @user.id == @recipe.user_id ? 'justify-content-between' : 'justify-content-end' %>">
+  <% if @user.id == @recipe.user_id %>
+    <%= link_to shoppinglists_path(recipe_id: @recipe.id), class:"btn btn-success" do %>
+      <%= content_tag :i, nil, class: "bi bi-cart-plus-fill" %>
+      Generate shopping list
+    <% end %>
+  <% end %>
+  
   <%= link_to new_recipe_recipe_food_path(recipe_id: @recipe.id), class: "btn btn-primary" do %>
     <%= content_tag :i, nil, class: "bi bi-plus-circle-fill" %>
     Add ingredient
