@@ -39,10 +39,10 @@ RSpec.describe 'Foods page', type: :system do
     it 'click on Delete button' do
       # Click on the first link with the text "Delete"
       first(:link, 'Delete').click
-    
+
       # Handle the alert using Capybara's accept_alert method
       accept_alert 'Delete the food?'
-    
+
       # Assert that there is no delete links on the page
       expect(page).to have_content('Delete')
     end

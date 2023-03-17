@@ -32,12 +32,11 @@ class RecipesController < ApplicationController
 
     if @recipe.destroy
       flash[:notice] = 'Recipe deleted successfully!'
-      redirect_to recipes_path
     else
       flash[:alert] = "Recipe can't be deleted!"
       # render :index
-      redirect_to recipes_path
     end
+    redirect_to recipes_path
   end
 
   def toggle
