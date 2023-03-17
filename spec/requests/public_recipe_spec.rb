@@ -5,7 +5,8 @@ RSpec.describe 'Recipes Page', type: :system do
     before(:each) do
       @user = User.create!(name: 'name', email: 'email@gmail.com', password: 'password')
       @food = Food.create!(name: 'food', measurement_unit: 'kg', quantity: 5, price: 10, user_id: @user.id)
-      @recipe = Recipe.create!(name: 'recipe', preparation_time: 1, cooking_time: 2, description: 'description', public: true, user_id: @user.id)
+      @recipe = Recipe.create!(name: 'recipe', preparation_time: 1, cooking_time: 2, description: 'description',
+                               public: true, user_id: @user.id)
       @recipefood = RecipeFood.create!(quantity: 1, food_id: @food.id, recipe_id: @recipe.id)
       @user.skip_confirmation!
       @user.save!
@@ -16,7 +17,7 @@ RSpec.describe 'Recipes Page', type: :system do
       sleep(1)
       visit public_recipes_path
     end
-    
+
     after(:each) do
       sleep(2)
     end
@@ -30,7 +31,7 @@ RSpec.describe 'Recipes Page', type: :system do
       expect(page).to have_content(@recipefood.quantity)
       expect(page).to have_content(@recipefood.quantity * @food.price)
     end
-    
+
     it 'redirects when click on NAME' do
       sleep(1)
       # Click on the link with class name "text-dark"

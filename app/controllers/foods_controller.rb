@@ -28,12 +28,11 @@ class FoodsController < ApplicationController
 
     if @food.save
       flash[:notice] = 'Food created successfully!'
-      redirect_to foods_path
-    else
-      flash[:alert] = @food.errors.full_messages.first if @food.errors.any?
-      # render :new, status: unprocessable_entity
-      redirect_to foods_path
+    elsif @food.errors.any?
+      flash[:alert] = @food.errors.full_messages.first
     end
+    # render :new, status: unprocessable_entity
+    redirect_to foods_path
   end
 
   # DELETE /foods/1 or /foods/1.json

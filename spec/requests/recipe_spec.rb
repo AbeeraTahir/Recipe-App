@@ -4,8 +4,10 @@ RSpec.describe 'Recipes Page', type: :system do
   describe 'Recipe /index' do
     before(:each) do
       @user = User.create!(name: 'name', email: 'email@gmail.com', password: 'password')
-      @recipe = Recipe.create!(name: 'recipe', preparation_time: 1, cooking_time: 2, description: 'description', public: true, user_id: @user.id)
-      @recipe2 = Recipe.create!(name: 'recipe2', preparation_time: 1, cooking_time: 2, description: 'description2', public: true, user_id: @user.id)
+      @recipe = Recipe.create!(name: 'recipe', preparation_time: 1, cooking_time: 2, description: 'description',
+                               public: true, user_id: @user.id)
+      @recipe2 = Recipe.create!(name: 'recipe2', preparation_time: 1, cooking_time: 2, description: 'description2',
+                                public: true, user_id: @user.id)
       @user.skip_confirmation!
       @user.save!
       visit new_user_session_path
@@ -15,7 +17,7 @@ RSpec.describe 'Recipes Page', type: :system do
       sleep(1)
       visit recipes_path
     end
-    
+
     after(:each) do
       sleep(2)
     end
@@ -38,27 +40,28 @@ RSpec.describe 'Recipes Page', type: :system do
 
     it 'click on Delete button' do
       # Click on the first link with the text "Delete"
-      first(:link, "Delete").click
+      first(:link, 'Delete').click
       sleep(1)
       # Handle the alert
       page.driver.browser.switch_to.alert.accept
-      
+
       # Assert that there is a delete links on the page
       expect(page).to have_content('Delete')
     end
-    
+
     it 'click on View button' do
       sleep(1)
       # Click on the first link with the text "Delete"
-      first(:link, "View").click
+      first(:link, 'View').click
       expect(page).to have_current_path recipe_path(@recipe.id)
     end
   end
-  
+
   describe 'Recipe /new' do
     before(:each) do
       @user = User.create!(name: 'name', email: 'email@gmail.com', password: 'password')
-      @recipe = Recipe.create!(name: 'recipe', preparation_time: 1, cooking_time: 2, description: 'description', public: true, user_id: @user.id)
+      @recipe = Recipe.create!(name: 'recipe', preparation_time: 1, cooking_time: 2, description: 'description',
+                               public: true, user_id: @user.id)
       @user.skip_confirmation!
       @user.save!
       visit new_user_session_path
@@ -70,7 +73,7 @@ RSpec.describe 'Recipes Page', type: :system do
       sleep(1)
       visit new_recipe_path
     end
-    
+
     after(:each) do
       sleep(2)
     end
@@ -83,7 +86,7 @@ RSpec.describe 'Recipes Page', type: :system do
       click_button 'Create recipe'
       expect(page).to have_content("Name can't be blank")
     end
-    
+
     it 'creates a new recipe' do
       fill_in 'recipe_name', with: 'sea recipe'
       fill_in 'recipe_preparation_time', with: 1
@@ -92,7 +95,7 @@ RSpec.describe 'Recipes Page', type: :system do
       click_button 'Create recipe'
       expect(page).to have_content('Recipe created successfully!')
     end
-    
+
     it "doesn't create a new recipe with a name that already exists" do
       fill_in 'recipe_name', with: 'recipe'
       fill_in 'recipe_preparation_time', with: 1
@@ -101,7 +104,7 @@ RSpec.describe 'Recipes Page', type: :system do
       click_button 'Create recipe'
       expect(page).to have_content('Name has already been taken')
     end
-    
+
     it "doesn't create a new recipe with a negative preparation time" do
       fill_in 'recipe_name', with: 'sea recipe'
       fill_in 'recipe_preparation_time', with: -1
@@ -110,7 +113,7 @@ RSpec.describe 'Recipes Page', type: :system do
       click_button 'Create recipe'
       expect(page).to have_content('Preparation time must be greater than or equal to 0')
     end
-    
+
     it "doesn't create a new recipe with a negative cooking time" do
       fill_in 'recipe_name', with: 'sea recipe'
       fill_in 'recipe_preparation_time', with: 1
@@ -119,11 +122,10 @@ RSpec.describe 'Recipes Page', type: :system do
       click_button 'Create recipe'
       expect(page).to have_content('Cooking time must be greater than or equal to 0')
     end
-    
+
     it "click on 'Back to recipes' button" do
       click_link 'Back to recipes'
       expect(page).to have_current_path recipes_path
     end
-      
   end
 end

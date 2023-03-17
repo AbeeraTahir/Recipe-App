@@ -15,7 +15,7 @@ RSpec.describe 'Foods page', type: :system do
       sleep(1)
       visit foods_path
     end
-    
+
     after(:each) do
       sleep(2)
     end
@@ -35,19 +35,19 @@ RSpec.describe 'Foods page', type: :system do
       click_link 'Add food'
       expect(page).to have_current_path new_food_path
     end
-    
+
     it 'click on Delete button' do
       # Click on the first link with the text "Delete"
-      first(:link, "Delete").click
-      
+      first(:link, 'Delete').click
+
       # Handle the alert
       page.driver.browser.switch_to.alert.accept
-      
+
       # Assert that there is a delete links on the page
       expect(page).to have_content('Delete')
     end
   end
-  
+
   describe 'Foods /new' do
     before(:each) do
       @user = User.create!(name: 'name', email: 'email@gmail.com', password: 'password')
@@ -61,7 +61,7 @@ RSpec.describe 'Foods page', type: :system do
       sleep(1)
       visit new_food_path
     end
-    
+
     after(:each) do
       sleep(2)
     end
@@ -72,8 +72,8 @@ RSpec.describe 'Foods page', type: :system do
       expect(page).to have_content('Quantity')
       expect(page).to have_content('Price')
     end
-    
-    it "creates a new food" do
+
+    it 'creates a new food' do
       fill_in 'food_name', with: 'food'
       fill_in 'food_measurement_unit', with: 'kg'
       fill_in 'food_quantity', with: 5
@@ -82,7 +82,7 @@ RSpec.describe 'Foods page', type: :system do
       click_button 'Create food'
       expect(page).to have_current_path foods_path
     end
-    
+
     it "doesn't create a new food" do
       fill_in 'food_name', with: ''
       fill_in 'food_measurement_unit', with: ''
@@ -92,7 +92,7 @@ RSpec.describe 'Foods page', type: :system do
       click_button 'Create food'
       expect(page).to have_content("Name can't be blank")
     end
-    
+
     it "doesn't create a new food with duplicated NAME and MEASUREMENT_UNIT" do
       fill_in 'food_name', with: 'apple'
       fill_in 'food_measurement_unit', with: 'grams'
@@ -100,9 +100,9 @@ RSpec.describe 'Foods page', type: :system do
       fill_in 'food_price', with: '3'
       sleep(1)
       click_button 'Create food'
-      expect(page).to have_content("Name has already been taken")
+      expect(page).to have_content('Name has already been taken')
     end
-    
+
     it "click on 'Back to foods' button" do
       click_link('', class: 'btn-warning')
       sleep(1)
