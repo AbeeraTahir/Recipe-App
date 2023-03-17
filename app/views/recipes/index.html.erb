@@ -1,0 +1,39 @@
+<h1><%= @user.name.capitalize %>'s Recipes</h1>
+
+<div class="d-flex flex-row-reverse">
+  <%= link_to new_recipe_path, class: "btn btn-primary" do %>
+    <%= content_tag :i, nil, class: "bi bi-plus-circle-fill" %>
+    Add a new recipe
+  <% end %>
+</div>
+
+<% @recipes.each do |recipe| %>
+  <div class="card my-3">
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <div>
+          <h2 class="card-title"><%= recipe.name %></h2>
+          <%= link_to recipe_path(id: recipe.id), class: "btn btn-warning" do %>
+            <%= content_tag :i, nil, class: "bi bi-eye" %>
+            View
+          <% end %>
+          
+          <%= link_to recipe_path(id: recipe.id), data: {turbo_method: :delete, turbo_confirm: 'Delete the recipe?'}, class: "btn btn-danger" do %>
+            <%= content_tag :i, nil, class: "bi bi-trash" %>
+            Delete
+          <% end %>
+        </div>
+      
+        <div>
+          <p class="card-text">Description for the recipe:</p>
+          <p class="card-text"><%= recipe.description %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to public_recipes_path, class: "btn btn-success" do %>
+  <%= content_tag :i, nil, class: "bi bi-arrow-up-right-circle-fill" %>
+  Go to "Public Recipes"
+<% end %>

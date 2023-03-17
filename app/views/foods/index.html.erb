@@ -1,0 +1,36 @@
+<h1><%= @user.name.capitalize %>'s Foods</h1>
+
+<div class="d-flex flex-row-reverse">
+  <%= link_to new_food_path, class: "btn btn-primary" do %>
+    <%= content_tag :i, nil, class: "bi bi-plus-circle-fill" %>
+    Add food
+  <% end %>
+</div>
+
+<table class="table table-striped table-bordered mt-4">
+  <thead>
+    <tr>
+      <th>Food</th>
+      <th>Measurement unit</th>
+      <th class="text-center">Unit price</th>
+      <th class="text-center">Quantity</th>
+      <th class="text-center">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @foods.each do |food| %>
+      <tr>
+        <td class="align-middle"><%= food.name %></td>
+        <td class="align-middle"><%= food.measurement_unit %></td>
+        <td class="text-center align-middle"><%= food.price %></td>
+        <td class="text-center align-middle"><%= food.quantity %></td>
+        <td class="text-center align-middle">
+        <%= link_to food_path(id: food.id), data: {turbo_method: :delete, turbo_confirm: 'Delete the food?'}, class: "btn btn-danger" do %>
+          <%= content_tag :i, nil, class: "bi bi-trash" %>
+          Delete
+        <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

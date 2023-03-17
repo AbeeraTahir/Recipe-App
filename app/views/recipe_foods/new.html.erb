@@ -1,0 +1,18 @@
+<div class="d-flex justify-content-center">
+  <div>
+    <h1 class="text-primary">Add Ingredient</h1>
+  
+    <% if (@foods.empty?) %>
+      <h2>You have not added any food yet. please add some foods</h2>
+    <% else %>
+      <%= render "ingredients_new_form", recipe_food: @recipe_food, foods: @foods, url: recipe_recipe_foods_path%>
+    <% end %>
+    
+    <br>
+    
+    <%= link_to(request.referer || root_path, class: "btn btn-warning") do %>
+      <%= content_tag :i, nil, class: "bi bi-arrow-left-circle" %>
+      Go back
+    <% end %>
+  </div>
+</div>

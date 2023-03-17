@@ -1,0 +1,26 @@
+<h1 class="text-center">Public Recipes</h1>
+
+<% @public_recipes.includes(recipe_foods: :food).each do |public_recipe| %>
+  <%= link_to recipe_path(id: public_recipe.id), class: "text-decoration-none text-dark" do%>
+  <div class="card my-3">
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <h2 class="card-title"><%= public_recipe.name %></h2>
+        
+        <div>
+          <p class="card-text"><b>Total food items:</b> <%= public_recipe.recipe_foods.size %></p>
+          <p class="card-text"><b>Total Price: $</b>
+            <% total_price = 0 %>
+            <% public_recipe.recipe_foods.each do |recipe_food| %>
+            <% total_price += recipe_food.quantity * recipe_food.food.price %>
+            <% end %>
+            <%= total_price %>
+          </p>
+        </div>
+      </div>
+      
+      <h4 class="card-subtitle mb-2 text-muted">By: <%= public_recipe.user.name.capitalize %></h4>
+    </div>
+  </div>
+<% end %>
+<% end %>

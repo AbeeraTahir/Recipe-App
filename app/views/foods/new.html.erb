@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-center">
+  <div>
+    <h1 class="text-primary">New food</h1>
+    
+    <%= render "form", food: @food %>
+    
+    <br>
+  
+    <div>
+      <%= link_to foods_path, class: "btn btn-warning" do %>
+        <%= content_tag :i, nil, class: "bi bi-arrow-left-circle" %>
+        Back to foods
+      <% end %>
+    </div>
+  
+  </div>
+</div>
