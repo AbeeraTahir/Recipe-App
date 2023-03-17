@@ -30,8 +30,9 @@ class FoodsController < ApplicationController
       flash[:notice] = 'Food created successfully!'
       redirect_to foods_path
     else
-      flash.now[:alert] = @food.errors.full_messages.first if @food.errors.any?
-      render :new, status: unprocessable_entity
+      flash[:alert] = @food.errors.full_messages.first if @food.errors.any?
+      # render :new, status: unprocessable_entity
+      redirect_to foods_path
     end
   end
 
