@@ -7,8 +7,7 @@
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
   <%= link_to new_registration_path(resource_name), class: "btn btn-success mb-2" do %>
-    <%= content_tag :i, nil, class: "bi bi-person-fill-add" %>
-    Sign up
+    <i class="bi bi-person-fill-add"></i> Sign up
   <% end %>
   <br />
 <% end %>
