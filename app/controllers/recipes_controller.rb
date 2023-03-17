@@ -22,7 +22,7 @@ class RecipesController < ApplicationController
       flash[:notice] = 'Recipe created successfully!'
       redirect_to recipe_path(id: @recipe.id)
     else
-      flash[:alert] = 'You must fill in all the fields! or Not duplicate recipe name'
+      flash[:alert] = 'Could not create recipe.'
       redirect_to recipes_path
     end
   end

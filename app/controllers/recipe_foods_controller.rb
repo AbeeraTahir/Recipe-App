@@ -9,7 +9,7 @@ class RecipeFoodsController < ApplicationController
       @recipe_food = RecipeFood.new
     else
       flash[:alert] = 'You cannot add an ingredient on a recipe that belongs to other Users.'
-      redirect_to public_recipes_path
+      redirect_to recipe_path(@recipe)
     end
   end
 
