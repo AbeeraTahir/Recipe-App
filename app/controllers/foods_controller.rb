@@ -1,11 +1,10 @@
 class FoodsController < ApplicationController
   # before_action :set_food, only: %i[show edit update destroy]
-  before_action :set_user, expect: [:update]
+  before_action :set_user
 
   # GET /foods or /foods.json
   def index
-    # @foods = Food.all
-    @foods = @user.foods.all
+    @foods = @user.foods
   end
 
   # GET /foods/1 or /foods/1.json
@@ -18,9 +17,6 @@ class FoodsController < ApplicationController
     @food = Food.new
   end
 
-  # GET /foods/1/edit
-  def edit; end
-
   # POST /foods or /foods.json
   def create
     @food = Food.new(food_params)
@@ -28,16 +24,18 @@ class FoodsController < ApplicationController
 
     if @food.save
       flash[:notice] = 'Food created successfully!'
-    elsif @food.errors.any?
-      flash[:alert] = @food.errors.full_messages.first
+      redirect_to foods_path
+    else
+      flash.now[:alert] = @food.errors.full_messages.first if @food.errors.any?
+      render :new, status: unprocessable_entity
     end
-    # render :new, status: unprocessable_entity
-    redirect_to foods_path
   end
 
   # DELETE /foods/1 or /foods/1.json
   def destroy
     @food = Food.find(params[:id])
+
+    flash[:alert] = 'You cannot delete the Food belongs to other Users.' unless @food.user == @user
 
     if @food.destroy
       flash[:notice] = 'Food deleted successfully!'

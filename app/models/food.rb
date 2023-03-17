@@ -5,5 +5,9 @@ class Food < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :measurement_unit, presence: true, uniqueness: true
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :name, presence: true,
+                   uniqueness: { scope: :measurement_unit, message: 'must be unique within a measurement unit' }
+  validates :measurement_unit, presence: true
+  validates :price, presence: true, numericality: { only_float: true, greater_than_or_equal_to: 0 }
   validates :quantity, presence: true
 end

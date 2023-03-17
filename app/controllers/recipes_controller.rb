@@ -1,12 +1,12 @@
 class RecipesController < ApplicationController
-  before_action :set_user, expect: [:update]
+  before_action :set_user
+  before_action :set_recipe, only: %i[show destroy toggle]
 
   def index
     @recipes = @user.recipes
   end
 
   def show
-    @recipe = Recipe.find(params[:id])
     @recipe_foods = @recipe.recipe_foods.includes(:food)
   end
 
@@ -22,14 +22,16 @@ class RecipesController < ApplicationController
       flash[:notice] = 'Recipe created successfully!'
     elsif @recipe.errors.any?
       flash[:alert] = @recipe.errors.full_messages.first
+      redirect_to recipe_path(id: @recipe.id)
+    else
+      flash[:alert] = 'Could not create recipe.'
+      redirect_to recipes_path
     end
     # render :new, status: unprocessable_entity
     redirect_to recipes_path
   end
 
   def destroy
-    @recipe = Recipe.find(params[:id])
-
     if @recipe.destroy
       flash[:notice] = 'Recipe deleted successfully!'
       redirect_to recipes_path
@@ -40,7 +42,6 @@ class RecipesController < ApplicationController
   end
 
   def toggle
-    @recipe = Recipe.find(params[:id])
     @recipe.public = !@recipe.public
     text = @recipe.public? ? 'public' : 'private'
 
@@ -56,6 +57,10 @@ class RecipesController < ApplicationController
 
   def set_user
     @user = current_user
+  end
+
+  def set_recipe
+    @recipe = Recipe.find(params[:id])
   end
 
   def recipe_params
