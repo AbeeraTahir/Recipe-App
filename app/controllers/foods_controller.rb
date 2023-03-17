@@ -34,9 +34,7 @@ class FoodsController < ApplicationController
   def destroy
     @food = Food.find(params[:id])
 
-    unless @food.user == @user
-      flash[:alert] = 'You cannot delete the Food belongs to other Users.'
-    end
+    flash[:alert] = 'You cannot delete the Food belongs to other Users.' unless @food.user == @user
 
     if @food.destroy
       flash[:notice] = 'Food deleted successfully!'

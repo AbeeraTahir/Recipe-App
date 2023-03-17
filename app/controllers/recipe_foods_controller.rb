@@ -5,7 +5,7 @@ class RecipeFoodsController < ApplicationController
 
   def new
     @foods = current_user.foods
-    if (@recipe.user == current_user)
+    if @recipe.user == current_user
       @recipe_food = RecipeFood.new
     else
       flash[:alert] = 'You cannot add an ingredient on a recipe that belongs to other Users.'
@@ -45,7 +45,7 @@ class RecipeFoodsController < ApplicationController
       flash[:alert] = 'You cannot modify the ingredient that belongs to other Users.'
       return redirect_to recipe_path(@recipe)
     end
-    
+
     @foods = current_user.foods
   end
 
