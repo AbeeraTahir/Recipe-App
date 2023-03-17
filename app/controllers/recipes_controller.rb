@@ -20,10 +20,11 @@ class RecipesController < ApplicationController
 
     if @recipe.save
       flash[:notice] = 'Recipe created successfully!'
-      redirect_to recipe_path(id: @recipe.id)
+      redirect_to recipes_path
     else
-      flash.now[:alert] = @recipe.errors.full_messages.first if @recipe.errors.any?
-      render :new, status: unprocessable_entity
+      flash[:alert] = @recipe.errors.full_messages.first if @recipe.errors.any?
+      # render :new, status: unprocessable_entity
+      redirect_to recipes_path
     end
   end
 
