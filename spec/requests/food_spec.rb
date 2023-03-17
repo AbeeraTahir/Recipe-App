@@ -93,7 +93,7 @@ RSpec.describe 'Foods page', type: :system do
       expect(page).to have_content("Name can't be blank")
     end
 
-    it "doesn't create a new food with duplicated NAME and MEASUREMENT_UNIT" do
+    it "doesn't create a new food with duplicated NAME" do
       fill_in 'food_name', with: 'apple'
       fill_in 'food_measurement_unit', with: 'grams'
       fill_in 'food_quantity', with: '1'
