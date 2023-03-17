@@ -52,6 +52,7 @@ class RecipeFoodsController < ApplicationController
     unless @recipe_user_food.quantity >= recipe_food_params[:quantity].to_i
       return redirect_to recipe_path(@recipe), alert: 'Quantity in stock is less.'
     end
+
     if @recipe_food.update(recipe_food_params)
       redirect_to recipe_path(@recipe), notice: 'Ingredient was successfully modified.'
       @recipe_user_food.quantity -= recipe_food_params[:quantity].to_i
