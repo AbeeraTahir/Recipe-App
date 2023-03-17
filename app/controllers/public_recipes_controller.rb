@@ -1,9 +1,8 @@
 class PublicRecipesController < ApplicationController
-  before_action :set_user, expect: [:update]
+  before_action :set_user
 
   def index
-    @users = User.all
-    @public_recipes = Recipe.includes(%i[recipe_foods user]).where(public: true)
+    @public_recipes = Recipe.includes(recipe_foods: :food).where(public: true)
   end
 
   private

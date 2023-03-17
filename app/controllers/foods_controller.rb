@@ -28,9 +28,10 @@ class FoodsController < ApplicationController
 
     if @food.save
       flash[:notice] = 'Food created successfully!'
-    else
-      flash[:alert] = 'You must fill in all the fields! or Not duplicate food name'
+    elsif @food.errors.any?
+      flash[:alert] = @food.errors.full_messages.first
     end
+    # render :new, status: unprocessable_entity
     redirect_to foods_path
   end
 
