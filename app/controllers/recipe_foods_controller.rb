@@ -17,25 +17,23 @@ class RecipeFoodsController < ApplicationController
     existing_recipe_food = RecipeFood.find_by(food_id: recipe_food_params[:food_id], recipe_id: @recipe.id)
 
     if existing_recipe_food.present?
-      flash[:alert] = 'Ingredient already exists'
-      redirect_to recipe_path(@recipe)
+      redirect_to recipe_path(@recipe), alert: 'Ingredient already exists'
     else
       @recipe_user_food = Food.find(recipe_food_params[:food_id])
-      if @recipe_user_food.quantity < recipe_food_params[:quantity].to_i
-        flash[:alert] = 'Quantity in stock is less.'
-        redirect_to recipe_path(@recipe)
-      else
-        @recipe_food = RecipeFood.new(recipe_food_params)
-        @recipe_food.recipe = @recipe
+      unless @recipe_user_food.quantity > recipe_food_params[:quantity].to_i
+        return redirect_to recipe_path(@recipe), alert: 'Quantity in stock is less.'
+      end
 
-        if @recipe_food.save
-          redirect_to recipe_path(@recipe), notice: 'New ingredient was successfully added.'
-          @recipe_user_food.quantity -= recipe_food_params[:quantity].to_i
-          @recipe_user_food.save
-        else
-          flash[:alert] = @recipe_food.errors.full_messages.first if @recipe_food.errors.any?
-          redirect_to recipes_path
-        end
+      @recipe_food = RecipeFood.new(recipe_food_params)
+      @recipe_food.recipe = @recipe
+
+      if @recipe_food.save
+        redirect_to recipe_path(@recipe), notice: 'New ingredient was successfully added.'
+        @recipe_user_food.quantity -= recipe_food_params[:quantity].to_i
+        @recipe_user_food.save
+      else
+        flash[:alert] = @recipe_food.errors.full_messages.first if @recipe_food.errors.any?
+        redirect_to recipes_path
       end
     end
   end
