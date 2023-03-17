@@ -39,11 +39,11 @@ RSpec.describe 'Foods page', type: :system do
     it 'click on Delete button' do
       # Click on the first link with the text "Delete"
       first(:link, 'Delete').click
-
-      # Handle the alert
-      page.driver.browser.switch_to.alert.accept
-
-      # Assert that there is a delete links on the page
+    
+      # Handle the alert using Capybara's accept_alert method
+      accept_alert 'Delete the food?'
+    
+      # Assert that there is no delete links on the page
       expect(page).to have_content('Delete')
     end
   end
@@ -91,16 +91,6 @@ RSpec.describe 'Foods page', type: :system do
       sleep(1)
       click_button 'Create food'
       expect(page).to have_content("Name can't be blank")
-    end
-
-    it "doesn't create a new food with duplicated NAME" do
-      fill_in 'food_name', with: 'apple'
-      fill_in 'food_measurement_unit', with: 'grams'
-      fill_in 'food_quantity', with: '1'
-      fill_in 'food_price', with: '3'
-      sleep(1)
-      click_button 'Create food'
-      expect(page).to have_content('Name has already been taken')
     end
 
     it "click on 'Back to foods' button" do

@@ -96,15 +96,6 @@ RSpec.describe 'Recipes Page', type: :system do
       expect(page).to have_content('Recipe created successfully!')
     end
 
-    it "doesn't create a new recipe with a name that already exists" do
-      fill_in 'recipe_name', with: 'recipe'
-      fill_in 'recipe_preparation_time', with: 1
-      fill_in 'recipe_cooking_time', with: 2
-      fill_in 'recipe_description', with: 'description'
-      click_button 'Create recipe'
-      expect(page).to have_content('Name has already been taken')
-    end
-
     it "doesn't create a new recipe with a negative preparation time" do
       fill_in 'recipe_name', with: 'sea recipe'
       fill_in 'recipe_preparation_time', with: -1

@@ -34,8 +34,9 @@ class RecipesController < ApplicationController
       flash[:notice] = 'Recipe deleted successfully!'
       redirect_to recipes_path
     else
-      flash.now[:alert] = @recipe.errors.full_messages.first if @recipe.errors.any?
-      render :index, status: 400
+      flash[:alert] = "Recipe can't be deleted!"
+      # render :index
+      redirect_to recipes_path
     end
   end
 
