@@ -25,7 +25,7 @@ development:
   <<: *default
   database: Recipe_App_development
   username: postgres
-  password: unixMicro1
+  password: 123456
   host: localhost
   port: 5432
 
@@ -63,7 +63,7 @@ test:
   <<: *default
   database: Recipe_App_test
   username: postgres
-  password: unixMicro1
+  password: 123456
   host: localhost
   port: 5432
 
@@ -89,6 +89,4 @@ test:
 #
 production:
   <<: *default
-  database: Recipe_App_production
-  username: Recipe_App
-  password: <%= ENV["RECIPE_APP_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
